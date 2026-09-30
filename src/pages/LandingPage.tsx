@@ -29,7 +29,7 @@ export function LandingPage() {
             Voice interviews for Analyst seats
           </h1>
           <p className="rise-3 mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-            Run live HR interviews with your Sarvam agent — Analyst and Advanced Analyst roles at
+            Run live HR interviews with your agent — Analyst and Advanced Analyst roles at
             Knowcraft.
           </p>
           <div className="rise-4 mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -47,8 +47,8 @@ export function LandingPage() {
           </div>
           <p className="rise-5 mt-4 text-xs text-subtle">
             {shownReady
-              ? "Sarvam agent connected · ready to interview"
-              : "Connect your Sarvam Voice Agent to begin"}
+              ? "Agent connected · ready to interview"
+              : "Connect your Voice Agent to begin"}
           </p>
         </section>
 
@@ -57,7 +57,7 @@ export function LandingPage() {
             {
               icon: Mic,
               title: "Voice-first",
-              copy: "Live spoken interview with your configured Sarvam agent.",
+              copy: "Live spoken interview with your configured agent.",
             },
             {
               icon: Users,

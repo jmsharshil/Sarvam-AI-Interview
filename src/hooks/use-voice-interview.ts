@@ -97,7 +97,7 @@ export function useVoiceInterview(sessionId: string) {
 
     const boot = async () => {
       try {
-        setHint("Connecting your Sarvam agent");
+        setHint("Connecting your agent");
         const handle = await connectSarvamAgent(creds, sess.config, {
           onTranscript: (turn) => useInterviewStore.getState().addTurn(sessionId, turn),
           onState: (state) => {
@@ -138,7 +138,7 @@ export function useVoiceInterview(sessionId: string) {
         }
         sarvamRef.current = handle;
         useInterviewStore.getState().setStatus(sessionId, "listening");
-        setHint("Live with your Sarvam agent");
+        setHint("Live with your agent");
       } catch (err) {
         if (cancelled) return;
         const message =

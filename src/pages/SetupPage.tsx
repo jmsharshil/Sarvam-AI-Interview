@@ -21,7 +21,7 @@ export function SetupPage() {
 
   const enter = () => {
     if (!ready) {
-      toast.error("Connect your Sarvam agent first.");
+      toast.error("Connect your agent first.");
       return;
     }
     if (!(draft.candidateName ?? "").trim()) {
@@ -44,7 +44,7 @@ export function SetupPage() {
           New interview
         </h1>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Choose the seat and candidate. Everything else is fixed for your Sarvam agent.
+          Choose the seat and candidate. Everything else is fixed for your agent.
         </p>
 
         <form
@@ -104,7 +104,7 @@ export function SetupPage() {
             {!ready ? (
               <ConnectSarvam>
                 <Button type="button" variant="outline" size="lg" className="w-full">
-                  Connect Sarvam agent
+                  Connect agent
                 </Button>
               </ConnectSarvam>
             ) : null}

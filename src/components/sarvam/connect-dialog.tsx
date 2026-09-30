@@ -44,7 +44,7 @@ export function ConnectSarvam({ children }: { children: ReactNode }) {
       appId: form.appId.trim(),
     });
     setOpen(false);
-    toast.success("Sarvam agent saved on this device.");
+    toast.success("Agent saved on this device.");
   };
 
   return (
@@ -52,7 +52,7 @@ export function ConnectSarvam({ children }: { children: ReactNode }) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Your Sarvam agent</DialogTitle>
+          <DialogTitle>Your agent</DialogTitle>
           <DialogDescription>
             Paste values from Voice Agents → Deploy with Code. Must be a committed{" "}
             <strong>Voice</strong> agent (not text-only).
@@ -95,7 +95,7 @@ export function ConnectSarvam({ children }: { children: ReactNode }) {
                 onClick={() => {
                   clearSarvam();
                   setForm({ apiKey: "", orgId: "", workspaceId: "", appId: "" });
-                  toast.message("Disconnected Sarvam.");
+                  toast.message("Disconnected agent.");
                 }}
               >
                 Disconnect
