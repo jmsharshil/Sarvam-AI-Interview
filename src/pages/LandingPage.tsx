@@ -6,14 +6,13 @@ import { Badge } from "@/components/ui/card";
 import { ConnectSarvam } from "@/components/sarvam/connect-dialog";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { useInterviewStore } from "@/lib/interviews/store";
+import { useSarvamReady } from "@/hooks/use-sarvam-ready";
 import { roleLabel, type InterviewSession } from "@/lib/interviews/types";
 
 export function LandingPage() {
   const hydrated = useHydrated();
   const sessions = useInterviewStore((s) => s.sessions);
-  const ready = useInterviewStore((s) =>
-    Boolean(s.sarvam.apiKey && s.sarvam.orgId && s.sarvam.workspaceId && s.sarvam.appId),
-  );
+  const ready = useSarvamReady();
   const shownSessions = hydrated ? sessions : [];
   const shownReady = hydrated ? ready : false;
 

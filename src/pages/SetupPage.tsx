@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Input, Label } from "@/components/ui/input";
 import { ConnectSarvam } from "@/components/sarvam/connect-dialog";
 import { useInterviewStore } from "@/lib/interviews/store";
+import { useSarvamReady } from "@/hooks/use-sarvam-ready";
 import { TRACKS, type JobTitle } from "@/lib/interviews/types";
 import { cn } from "@/lib/utils";
 
@@ -15,9 +16,7 @@ export function SetupPage() {
   const draft = useInterviewStore((s) => s.draft);
   const setDraft = useInterviewStore((s) => s.setDraft);
   const createSession = useInterviewStore((s) => s.createSession);
-  const ready = useInterviewStore((s) =>
-    Boolean(s.sarvam.apiKey && s.sarvam.orgId && s.sarvam.workspaceId && s.sarvam.appId),
-  );
+  const ready = useSarvamReady();
   const [busy, setBusy] = useState(false);
 
   const enter = () => {

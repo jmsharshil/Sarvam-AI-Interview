@@ -3,13 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/card";
 import { ConnectSarvam } from "@/components/sarvam/connect-dialog";
 import { useHydrated } from "@/hooks/use-hydrated";
-import { useInterviewStore } from "@/lib/interviews/store";
+import { useSarvamReady } from "@/hooks/use-sarvam-ready";
 
 export function AppHeader({ solid = false }: { solid?: boolean }) {
   const hydrated = useHydrated();
-  const ready = useInterviewStore((s) =>
-    Boolean(s.sarvam.apiKey && s.sarvam.orgId && s.sarvam.workspaceId && s.sarvam.appId),
-  );
+  const ready = useSarvamReady();
   const shownReady = hydrated && ready;
 
   return (

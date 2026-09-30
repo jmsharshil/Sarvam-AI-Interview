@@ -12,7 +12,12 @@ export function envSarvamCredentials(): SarvamCredentials {
 }
 
 export function isSarvamConfigured(c: SarvamCredentials): boolean {
-  return Boolean(c.apiKey && c.orgId && c.workspaceId && c.appId);
+  return Boolean(
+    c.apiKey?.trim() &&
+      c.orgId?.trim() &&
+      c.workspaceId?.trim() &&
+      c.appId?.trim(),
+  );
 }
 
 /** Prefer non-empty fields from `preferred`, fall back to `fallback`. */
@@ -21,9 +26,16 @@ export function mergeCredentials(
   fallback: SarvamCredentials,
 ): SarvamCredentials {
   return {
-    apiKey: preferred.apiKey || fallback.apiKey,
-    orgId: preferred.orgId || fallback.orgId,
-    workspaceId: preferred.workspaceId || fallback.workspaceId,
-    appId: preferred.appId || fallback.appId,
+    apiKey: preferred.apiKey?.trim() || fallback.apiKey || "",
+    orgId: preferred.orgId?.trim() || fallback.orgId || "",
+    workspaceId: preferred.workspaceId?.trim() || fallback.workspaceId || "",
+    appId: preferred.appId?.trim() || fallback.appId || "",
   };
+}
+
+/** Effective credentials: browser store + env. */
+export function effectiveSarvamCredentials(
+  stored: SarvamCredentials,
+): SarvamCredentials {
+  return mergeCredentials(stored, envSarvamCredentials());
 }

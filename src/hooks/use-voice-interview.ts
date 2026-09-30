@@ -5,6 +5,7 @@ import { useHydrated } from "@/hooks/use-hydrated";
 import { useInterviewStore } from "@/lib/interviews/store";
 import type { RoomStatus } from "@/lib/interviews/types";
 import { connectSarvamAgent, type SarvamHandle } from "@/lib/sarvam/session";
+import { effectiveSarvamCredentials, isSarvamConfigured } from "@/lib/sarvam/env";
 
 function latestSession(id: string) {
   return useInterviewStore.getState().sessions.find((item) => item.id === id);
@@ -75,14 +76,16 @@ export function useVoiceInterview(sessionId: string) {
       return;
     }
 
-    const creds = useInterviewStore.getState().sarvam;
-    if (!creds.apiKey || !creds.orgId || !creds.workspaceId || !creds.appId) {
+    const creds = effectiveSarvamCredentials(useInterviewStore.getState().sarvam);
+    if (!isSarvamConfigured(creds)) {
       useInterviewStore
         .getState()
-        .setStatus(sessionId, "error", "Connect your Sarvam agent first.");
-      setHint("Connect your Sarvam agent first.");
+        .setStatus(sessionId, "error", "Set VITE_SARVAM_* in .env or connect your agent.");
+      setHint("Set VITE_SARVAM_* in .env or connect your agent.");
       return;
     }
+    // keep store in sync so UI shows connected
+    useInterviewStore.getState().setSarvam(creds);
 
     startedRef.current = true;
     running.current = true;
