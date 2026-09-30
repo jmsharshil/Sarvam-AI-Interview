@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import { AppHeader } from "@/components/layout/app-header";
 import { Button } from "@/components/ui/button";
 import { Card, Progress } from "@/components/ui/card";
-import { TranscriptRail } from "@/components/room/transcript-rail";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { useInterviewStore } from "@/lib/interviews/store";
 import { SCORE_LABELS, roleLabel, type ScoreKey } from "@/lib/interviews/types";
@@ -50,14 +49,7 @@ export function ReportPage() {
             {session.config.durationMin} min
           </p>
 
-          {session.callSummary ? (
-            <Card className="mt-6 p-4">
-              <p className="text-[11px] tracking-[0.16em] text-subtle uppercase">call_summary</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {session.callSummary}
-              </p>
-            </Card>
-          ) : null}
+
 
           {session.error && !report ? (
             <p className="mt-6 text-sm text-destructive">{session.error}</p>
@@ -115,12 +107,12 @@ export function ReportPage() {
             </Button>
           </div>
         </div>
-        <Card className="flex min-h-[24rem] flex-col p-5">
-          <p className="mb-3 text-[11px] tracking-[0.18em] text-subtle uppercase">Transcript</p>
-          <div className="min-h-0 flex-1">
-            <TranscriptRail turns={session.turns} />
-          </div>
-        </Card>
+        {session.callSummary ? (
+          <Card className="flex flex-col p-5">
+            <p className="mb-3 text-[11px] tracking-[0.18em] text-subtle uppercase">Call Summary</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">{session.callSummary}</p>
+          </Card>
+        ) : null}
       </main>
     </div>
   );

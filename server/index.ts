@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json({ limit: "8mb" }));
 
 function apiKey() {
-  return process.env.XAI_API_KEY?.trim() || null;
+  return process.env.OPENAI_API_KEY?.trim() || null;
 }
 
 function extractJson(text: string): unknown {
@@ -40,16 +40,16 @@ async function chat(
   opts: { max_tokens: number; temperature: number },
 ) {
   const key = apiKey();
-  if (!key) return { ok: false as const, error: "XAI_API_KEY is not set" };
+  if (!key) return { ok: false as const, error: "OPENAI_API_KEY is not set" };
 
-  const res = await fetch("https://api.x.ai/v1/chat/completions", {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${key}`,
     },
     body: JSON.stringify({
-      model: "grok-4.5",
+      model: "gpt-4o-mini",
       messages,
       max_tokens: opts.max_tokens,
       temperature: opts.temperature,
@@ -57,14 +57,14 @@ async function chat(
   });
 
   if (!res.ok) {
-    return { ok: false as const, error: `Interviewer unavailable (${res.status})` };
+    return { ok: false as const, error: `Debrief unavailable (${res.status})` };
   }
 
   const body = (await res.json()) as {
     choices?: { message?: { content?: string | null } }[];
   };
   const text = body.choices?.[0]?.message?.content?.trim() ?? "";
-  if (!text) return { ok: false as const, error: "Empty interviewer response" };
+  if (!text) return { ok: false as const, error: "Empty response from model" };
   return { ok: true as const, text };
 }
 
@@ -145,7 +145,7 @@ ${history.length === 0 ? "Greet briefly, then ask the first question." : "Contin
 app.post("/api/speak", async (req, res) => {
   try {
     const key = apiKey();
-    if (!key) return res.status(500).json({ ok: false, error: "XAI_API_KEY is not set" });
+    if (!key) return res.status(500).json({ ok: false, error: "OPENAI_API_KEY is not set" });
 
     const text = String(req.body?.text ?? "").trim().slice(0, 900);
     const language = String(req.body?.language ?? "en");
@@ -196,7 +196,7 @@ app.post("/api/speak", async (req, res) => {
 app.post("/api/transcribe", async (req, res) => {
   try {
     const key = apiKey();
-    if (!key) return res.status(500).json({ ok: false, error: "XAI_API_KEY is not set" });
+    if (!key) return res.status(500).json({ ok: false, error: "OPENAI_API_KEY is not set" });
 
     const raw = String(req.body?.audioBase64 ?? "").trim();
     const mime = String(req.body?.mimeType || "audio/webm");
@@ -294,8 +294,8 @@ app.post("/api/evaluate", async (req, res) => {
         ok: true,
         report: {
           summary:
-            result.error.includes("XAI_API_KEY")
-              ? "Interview complete. Connect an XAI_API_KEY to generate a scored debrief, or review the transcript below."
+            result.error.includes("OPENAI_API_KEY")
+              ? "Interview complete. Add an OPENAI_API_KEY to generate a scored debrief, or review the transcript below."
               : `Interview complete. Debrief unavailable: ${result.error}`,
           scores: {
             communication: 0,
@@ -386,7 +386,7 @@ app.get("/api/sarvam-config", (_req, res) => {
 });
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, hasXai: Boolean(apiKey()) });
+  res.json({ ok: true, hasOpenAI: Boolean(apiKey()) });
 });
 
 if (isProd) {
@@ -400,6 +400,6 @@ if (isProd) {
 app.listen(port, "0.0.0.0", () => {
   console.log(`[viva-api] http://127.0.0.1:${port}`);
   if (!apiKey()) {
-    console.warn("[viva-api] XAI_API_KEY missing — Studio mode will fail until you set it.");
+    console.warn("[viva-api] OPENAI_API_KEY missing — scored debriefs will be unavailable.");
   }
 });

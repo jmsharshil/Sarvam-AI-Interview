@@ -69,6 +69,14 @@ export async function connectSarvamAgent(
         content,
       });
     },
+    eventCallback: async (event) => {
+      // Capture agent variable updates (e.g. call_summary set by the Sarvam agent)
+      const raw = event as unknown as Record<string, unknown>;
+      if (raw["type"] === "server.event.variable_update" && callbacks.onExtracted) {
+        const vars = (raw["variables"] ?? raw["data"] ?? {}) as Record<string, string>;
+        callbacks.onExtracted(vars);
+      }
+    },
     stateCallback: (state) => callbacks.onState(String(state)),
     endCallback: async () => callbacks.onEnd(),
   });

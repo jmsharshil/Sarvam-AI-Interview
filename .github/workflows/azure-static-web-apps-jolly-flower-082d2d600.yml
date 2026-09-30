@@ -27,7 +27,7 @@ jobs:
           VITE_SARVAM_ORG_ID: ${{ secrets.VITE_SARVAM_ORG_ID }}
           VITE_SARVAM_WORKSPACE_ID: ${{ secrets.VITE_SARVAM_WORKSPACE_ID }}
           VITE_SARVAM_APP_ID: ${{ secrets.VITE_SARVAM_APP_ID }}
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PORT: ${{ secrets.PORT }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_FLOWER_082D2D600 }}
