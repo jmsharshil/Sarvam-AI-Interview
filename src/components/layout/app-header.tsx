@@ -26,7 +26,7 @@ export function AppHeader({ solid = false }: { solid?: boolean }) {
             className="h-8 w-auto object-contain"
           />
         </Link>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           {shownReady ? (
             <Badge tone="live" className="hidden sm:inline-flex">
               Agent connected
@@ -37,7 +37,7 @@ export function AppHeader({ solid = false }: { solid?: boolean }) {
               {shownReady ? "Agent" : "Connect"}
             </Button>
           </ConnectSarvam>
-        </div>
+        </div> */}
       </div>
     </header>
   );
