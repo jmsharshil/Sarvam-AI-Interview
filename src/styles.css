@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Knowcraft light corporate: white + navy + teal */
+  --color-background: #f5f8fc;
+  --color-foreground: #0c1b33;
+  --color-card: #ffffff;
+  --color-card-foreground: #0c1b33;
+  --color-raised: #eef3f9;
+  --color-muted: #e8eef6;
+  --color-muted-foreground: #4a6280;
+  --color-subtle: #7a90a8;
+  --color-border: #d5e0ed;
+  --color-primary: #0b6e99;
+  --color-primary-foreground: #ffffff;
+  --color-live: #0d9b7a;
+  --color-live-foreground: #ffffff;
+  --color-destructive: #c93b3b;
+  --color-destructive-foreground: #ffffff;
+  --color-ring: #0b6e99;
+  --color-input: #d5e0ed;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  --shadow-border: 0 1px 2px rgba(12, 27, 51, 0.04), 0 0 0 1px rgba(12, 27, 51, 0.06);
+  --shadow-border-hover: 0 4px 12px rgba(11, 110, 153, 0.1), 0 0 0 1px rgba(11, 110, 153, 0.18);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  * {
+    border-color: var(--color-border);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.65;
+  }
+}
+
+.rise-1,
+.rise-2,
+.rise-3,
+.rise-4,
+.rise-5 {
+  animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-2 {
+  animation-delay: 60ms;
+}
+.rise-3 {
+  animation-delay: 120ms;
+}
+.rise-4 {
+  animation-delay: 180ms;
+}
+.rise-5 {
+  animation-delay: 240ms;
+}
+
+.orb-ring {
+  animation: orb-breathe 4.4s ease-in-out infinite;
+}
+.orb-ring-delay {
+  animation-delay: -1.6s;
+}
+
+.hero-wash {
+  background:
+    radial-gradient(80% 50% at 50% -10%, rgba(11, 110, 153, 0.12), transparent 70%),
+    radial-gradient(40% 35% at 100% 0%, rgba(13, 155, 122, 0.06), transparent 50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-1,
+  .rise-2,
+  .rise-3,
+  .rise-4,
+  .rise-5,
+  .orb-ring {
+    animation: none !important;
+  }
+}
