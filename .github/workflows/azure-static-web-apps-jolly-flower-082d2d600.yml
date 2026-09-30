@@ -19,18 +19,9 @@ jobs:
         with:
           submodules: true
           lfs: false
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+      - name: Build And Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
         env:
           VITE_SARVAM_API_KEY: ${{ secrets.VITE_SARVAM_API_KEY }}
           VITE_SARVAM_ORG_ID: ${{ secrets.VITE_SARVAM_ORG_ID }}
@@ -38,10 +29,6 @@ jobs:
           VITE_SARVAM_APP_ID: ${{ secrets.VITE_SARVAM_APP_ID }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           PORT: ${{ secrets.PORT }}
-
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_FLOWER_082D2D600 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
@@ -51,7 +38,6 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
-          skip_app_build: true  # We already built above with env vars injected
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
