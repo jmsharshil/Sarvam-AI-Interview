@@ -26,7 +26,7 @@ export function LandingPage() {
             Knowcraft Analytics · Talent
           </p>
           <h1 className="rise-2 mt-4 text-[clamp(2.25rem,6vw,3.5rem)] font-semibold leading-[1.1] tracking-tight">
-            Voice interviews for Analyst seats
+            Voice interviews
           </h1>
           <p className="rise-3 mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
             Run live HR interviews with your agent — Analyst and Advanced Analyst roles at
