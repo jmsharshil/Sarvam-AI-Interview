@@ -74,11 +74,10 @@ export function RoomPage() {
               End
             </Button>
           </div>
-          <p className="mt-4 text-xs text-subtle">Sarvam is the interviewer.</p>
         </section>
-        <aside className="flex min-h-[18rem] flex-col rounded-2xl bg-card p-5 shadow-[var(--shadow-border)] lg:min-h-0">
+        <aside className="flex min-h-[18rem] flex-col rounded-2xl bg-card p-5 shadow-[var(--shadow-border)] lg:h-[calc(100vh-8rem)] lg:min-h-0">
           <p className="mb-3 text-[11px] tracking-[0.18em] text-subtle uppercase">Transcript</p>
-          <div className="min-h-0 flex-1">
+          <div className="min-h-0 flex-1 overflow-hidden">
             <TranscriptRail turns={session.turns} />
           </div>
         </aside>

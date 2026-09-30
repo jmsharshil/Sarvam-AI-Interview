@@ -27,7 +27,6 @@ export async function connectSarvamAgent(
     ConversationAgent,
     BrowserAudioInterface,
     InteractionType,
-    Role,
   } = await import("sarvam-conv-ai-sdk/browser");
 
   const audioInterface = new BrowserAudioInterface(16000, {
@@ -62,8 +61,11 @@ export async function connectSarvamAgent(
     transcriptCallback: async (msg) => {
       const content = (msg.content || "").trim();
       if (!content) return;
+      // The raw server message includes is_final; only commit complete utterances
+      const raw = msg as unknown as Record<string, unknown>;
+      if (raw["is_final"] === false) return;
       callbacks.onTranscript({
-        role: msg.role === Role.USER ? "candidate" : "interviewer",
+        role: msg.role === "user" ? "candidate" : "interviewer",
         content,
       });
     },

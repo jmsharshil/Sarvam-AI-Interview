@@ -1,11 +1,17 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useEffect, useRef } from "react";
 import type { Turn } from "@/lib/interviews/types";
 import { cn } from "@/lib/utils";
 
 export function TranscriptRail({ turns }: { turns: Turn[] }) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [turns.length]);
+
   return (
-    <ScrollArea className="h-full min-h-0">
-      <ol className="flex flex-col gap-4 p-1 pr-3">
+    <div className="h-full overflow-y-auto pr-1">
+      <ol className="flex flex-col gap-4 p-1">
         {turns.length === 0 ? (
           <li className="text-sm text-subtle">The transcript will write itself as you speak.</li>
         ) : (
@@ -25,7 +31,8 @@ export function TranscriptRail({ turns }: { turns: Turn[] }) {
             </li>
           ))
         )}
+        <div ref={bottomRef} />
       </ol>
-    </ScrollArea>
+    </div>
   );
 }

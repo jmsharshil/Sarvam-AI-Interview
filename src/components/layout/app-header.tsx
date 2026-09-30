@@ -20,13 +20,11 @@ export function AppHeader({ solid = false }: { solid?: boolean }) {
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2.5 text-foreground no-underline">
-          <span className="flex size-8 items-center justify-center rounded-md bg-primary/15 text-xs font-bold tracking-tight text-primary">
-            KA
-          </span>
-          <div className="flex flex-col leading-none">
-            <span className="text-sm font-semibold tracking-tight">Knowcraft</span>
-            <span className="text-[10px] tracking-wide text-subtle uppercase">Interviews</span>
-          </div>
+          <img
+            src="https://hireprostorage.blob.core.windows.net/media/knowcraft_logo.png"
+            alt="Knowcraft"
+            className="h-8 w-auto object-contain"
+          />
         </Link>
         <div className="flex items-center gap-2">
           {shownReady ? (
