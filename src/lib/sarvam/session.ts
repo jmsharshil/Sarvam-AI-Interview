@@ -76,6 +76,9 @@ export async function connectSarvamAgent(
         const vars = (raw["variables"] ?? raw["data"] ?? {}) as Record<string, string>;
         callbacks.onExtracted(vars);
       }
+      if (raw["type"] === "server.action.interaction_end") {
+        callbacks.onEnd();
+      }
     },
     stateCallback: (state) => callbacks.onState(String(state)),
     endCallback: async () => callbacks.onEnd(),
