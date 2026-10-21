@@ -39,11 +39,11 @@ export function LandingPage() {
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
-            <ConnectSarvam>
+            {/* <ConnectSarvam> */}
               {/* <Button variant="outline" size="lg">
                 {shownReady ? "Agent settings" : "Connect agent"}
               </Button> */}
-            </ConnectSarvam>
+            {/* </ConnectSarvam> */}
           </div>
           <p className="rise-5 mt-4 text-xs text-subtle">
             {shownReady
